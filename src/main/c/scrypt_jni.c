@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <stdio.h>
 
 #include <jni.h>
 #include "crypto_scrypt.h"
@@ -10,6 +11,7 @@
 jbyteArray JNICALL scryptN(JNIEnv *env, jclass cls, jbyteArray passwd, jbyteArray salt,
     jint N, jint r, jint p, jint dkLen)
 {
+    printf("=====THIS IS A LOG STATEMENT INDICATING NATIVE CODE IS RUNNING=====\n");
     jint Plen = (*env)->GetArrayLength(env, passwd);
     jint Slen = (*env)->GetArrayLength(env, salt);
     jbyte *P = (*env)->GetByteArrayElements(env, passwd, NULL);
@@ -56,6 +58,7 @@ static const JNINativeMethod methods[] = {
 };
 
 jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    printf("=====THIS IS A LOG STATEMENT INDICATING NATIVE CODE IS RUNNING: OnLoad=====\n");
     JNIEnv *env;
 
     if ((*vm)->GetEnv(vm, (void **) &env, JNI_VERSION_1_6) != JNI_OK) {
